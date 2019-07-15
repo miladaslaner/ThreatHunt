@@ -1,4 +1,4 @@
-﻿# ThreatHunt by Milad Aslaner @MiladMSFT
+# ThreatHunt by Milad Aslaner @MiladMSFT
 #   _____  .__.__              .___ _____    _______________________________
 #  /     \ |__|  | _____     __| _//     \  /   _____/\_   _____/\__    ___/
 # /  \ /  \|  |  | \__  \   / __ |/  \ /  \ \_____  \  |    __)    |    |   
@@ -11,9 +11,9 @@
 
 
 # Test user from the environment
-# For AAD use format: AzureAD\username@domain.suffix
-# For AD use format: domain\username
-# For WORKGROUP: WORKGROUP\username
+# For AAD use format: AzureAD\ChuckNorris@domain.com
+# For AD use format: domain\ChuckNorris
+# For WORKGROUP: WORKGROUP\ChuckNorris
 
 Write-Host "We first need some test credentials..." 
 $domainUser = Read-Host -Prompt 'Provide username'
