@@ -30,4 +30,4 @@ Get-WmiObject win32_environment > $ThreatBox\logs\env.log
 Get-WmiObject win32_useraccount > $ThreatBox\logs\useraccount.log
 Get-HotFix > $ThreatBox\logs\hotfix.log
 & 'C:\Program Files (x86)\Nmap\nmap.exe' -T4 -A -v $IPrange > $ThreatBox\logs\nmap.log
-Compress-Archive $ThreatBox\*.log $ThreatBox\logs\logs.zip
+Compress-Archive $ThreatBox\logs\*.log $ThreatBox\logs\logs.zip
