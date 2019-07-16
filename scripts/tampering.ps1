@@ -22,7 +22,7 @@ Stop-Service -Name WdNisSvc -Force -PassThru -ErrorAction Ignore
 # Disable Microsoft Defender ATP Endpoint Detection & Response
 Write-Host "Attempting to disable functionality of Microsoft Defender ATP Endpoint Detection Response"
 Stop-Service -Name Sense -Force -PassThru -ErrorAction Ignore
-Taskkill /s /f /IM MSsense.exe
+Taskkill /s system /f /IM MSsense.exe
 
 # Disable Microsoft Defender ATP Attack Surface Reduction
 Write-Host "Attempting to disable functionality of Microsoft Defender ATP Attack Surface Reduction"
