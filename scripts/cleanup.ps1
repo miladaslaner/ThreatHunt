@@ -44,3 +44,8 @@ Get-Service -Displayname "*Friendly Friend*" | ForEach-object{ cmd /c  sc delete
 
 Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Name "PowerShell" -Force
 Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Termainl Server Client/Default" -Name "PowerShell" -Force
+
+Write-Host "Uninstall Nmap silently"
+powershell.exe $env:ProgramFiles(x86)\Nmap\uninstall.exe /S
+Write-Host "Uninstall Npcap silently"
+powershell.exe $env:ProgramFiles\Npcap\uninstall.exe /S
