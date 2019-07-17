@@ -5,56 +5,57 @@
 #   |____|   |___|  /__|    \___  >____  /__|   \___|_  /|____/|___|  /__|
 #                 \/            \/     \/             \/            \/  
 
-Write-Host "Time to cleanup our mess..."
-#Stop-Process -Force -Name "mimikatz.EXE"
+Write-Host "Time to cleanup..."
+
 Write-Host "Remove network share"
 Remove-SmbShare -Force -Name "ThreatBox"
 
-Write-Host "Delete magic folder"
+Write-Host "Delete temporary folder"
 Remove-Item -Force -Path $ThreatBox
 
-Write-Host "Remove tampering activities"
+Write-Host "Undo setting changes to Microsoft Defender ATP Next Generation Protection"
 
 Write-Host "DisableBehaviorMonitoring is enabled again"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $OldDisableBehaviorMonitoring}
 Get-MpPreference | fl DisableBehaviorMonitoring
 
-Write-Host "Defender DisableBlockAtFirstSeen is enabled again"
+Write-Host "DisableBlockAtFirstSeen is enabled again"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $OldDisableBlockAtFirstSeen}
 Get-MpPreference | fl DisableBlockAtFirstSeen
 
-Write-Host "Defender DisableIOAVProtection is enabled again"
+Write-Host "DisableIOAVProtection is enabled again"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableIOAVProtection
 
-Write-Host "Defender DisableRealtimeMonitoring is enabled again"
+Write-Host "DisableRealtimeMonitoring is enabled again"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableRealtimeMonitoring
 
-Write-Host "Defender DisableScriptScanning is enabled again"
+Write-Host "DisableScriptScanning is enabled again"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableScriptScanning
 
-Write-Host "Set EnableControlledFolderAccess to Disabled If currently setup as AuditMode or Enabled"
+Write-Host "EnableControlledFolderAccess configured to default"
 $Preferences = Get-MpPreference
 $Preferences.EnableControlledFolderAccess
 if ($Preferences.EnableControlledFolderAccess -eq 0) {Set-MpPreference -EnableControlledFolderAccess $OldCFA}
 Get-MpPreference | fl EnableControlledFolderAccess
 
-Write-Host "Set EnableNetworkProtection to Disabled If currently setup as AuditMode or Enabled"
+Write-Host "EnableNetworkProtection configured to default"
 $Preferences = Get-MpPreference
 $Preferences.EnableNetworkProtection
 if ($Preferences.EnableNetworkProtection -eq 1) {Set-MpPreference -EnableNetworkProtection $OldNP}
 Get-MpPreference | fl EnableNetworkProtection
 
-Set-NetFirewallProfile -Enabled True
-Set-MpPreference -EnableControlledFolderAccess AuditMode
-Set-MpPreference -EnableNetworkProtection AuditMode
+Write-Host "NetFirewallProfile configured to default"
+Set-NetFirewallProfile -Enabled $OldFirewall
+
+Write-Host "Configure Attack Surface Reduction Rules to default"
 Add-MpPreference -AttackSurfaceReductionRules_Ids BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 -AttackSurfaceReductionRules_Actions AuditMode
 Add-MpPreference -AttackSurfaceReductionRules_Ids D4F940AB-401B-4EFC-AADC-AD5F3C50688A -AttackSurfaceReductionRules_Actions AuditMode
 Add-MpPreference -AttackSurfaceReductionRules_Ids 3B576869-A4EC-4529-8536-B80A7769E899 -AttackSurfaceReductionRules_Actions AuditMode
