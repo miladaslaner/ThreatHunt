@@ -71,6 +71,7 @@ if ($Preferences.EnableNetworkProtection -eq 1) {Set-MpPreference -EnableNetwork
 elseif ($Preferences.EnableNetworkProtection -eq 2) {Set-MpPreference -EnableNetworkProtection 0}
 Get-MpPreference | fl EnableNetworkProtection
 
+Write-Host "Check If Attack Surface Reduction rules are configured and If so disable"
 Add-MpPreference -AttackSurfaceReductionRules_Ids BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 -AttackSurfaceReductionRules_Actions Disabled
 Add-MpPreference -AttackSurfaceReductionRules_Ids D4F940AB-401B-4EFC-AADC-AD5F3C50688A -AttackSurfaceReductionRules_Actions Disabled
 Add-MpPreference -AttackSurfaceReductionRules_Ids 3B576869-A4EC-4529-8536-B80A7769E899 -AttackSurfaceReductionRules_Actions Disabled
@@ -88,5 +89,8 @@ Add-MpPreference -AttackSurfaceReductionRules_Ids 7674ba52-37eb-4a4f-a9a1-f0f9a1
 Add-MpPreference -AttackSurfaceReductionRules_Ids e6db77e5-3df2-4cf1-b95a-636979351e5b -AttackSurfaceReductionRules_Actions Disabled
 
 # Disable Windows Firewall
-Write-Host "Attempting to disable Windows Firewall"
-Set-NetFirewallProfile -Enabled False
+Write-Host "Disable all Windows Firewall profiles"
+$Preferences = Get-NetFirewallProfile
+$OldFirewall = $Preferences.Enabled
+if ($Preferences.Enabled -eq $True) {Set-NetFirewallProfile -All -Enabled False}
+Get-NetFirewallProfile | fl Enabled
