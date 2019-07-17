@@ -23,3 +23,5 @@ ThreatHunt installs and leverages some 3rd-party tools and files such as PSExec,
 # Disclaimer
 
 While there are no malicious files inside this GitHub repositroy its important to call out that you are responsible for your environment. Make sure to assess any tools you deploy wisely before using in production environments. 
+
+Some of the activities are very simplified. As an example one step is copying calc.exe under C:\Windows\System32 as mimikatz.exe to a network share. Again, this isnt about using malicious files but to simply generate noise that can be used to train threat hunting skills.
