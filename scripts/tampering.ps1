@@ -59,14 +59,14 @@ Write-Host "Attempting to disable functionality of Microsoft Defender ATP Attack
 
 Write-Host "Set EnableControlledFolderAccess to Disabled If currently setup as AuditMode or Enabled"
 $Preferences = Get-MpPreference
-$Preferences.EnableControlledFolderAccess
+$OldCFA = $Preferences.EnableControlledFolderAccess
 if ($Preferences.EnableControlledFolderAccess -eq 1) {Set-MpPreference -EnableControlledFolderAccess 0}
 elseif ($Preferences.EnableControlledFolderAccess -eq 2) {Set-MpPreference -EnableControlledFolderAccess 0}
 Get-MpPreference | fl EnableControlledFolderAccess
 
 Write-Host "Set EnableNetworkProtection to Disabled If currently setup as AuditMode or Enabled"
 $Preferences = Get-MpPreference
-$Preferences.EnableNetworkProtection
+$OldNP = $Preferences.EnableControlledFolderAccess
 if ($Preferences.EnableNetworkProtection -eq 1) {Set-MpPreference -EnableNetworkProtection 0}
 elseif ($Preferences.EnableNetworkProtection -eq 2) {Set-MpPreference -EnableNetworkProtection 0}
 Get-MpPreference | fl EnableNetworkProtection
