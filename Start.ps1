@@ -1,14 +1,3 @@
-﻿# ThreatHunt by Milad Aslaner @MiladMSFT
-#   _____  .__.__              .___ _____    _______________________________
-#  /     \ |__|  | _____     __| _//     \  /   _____/\_   _____/\__    ___/
-# /  \ /  \|  |  | \__  \   / __ |/  \ /  \ \_____  \  |    __)    |    |   
-#/    Y    \  |  |__/ __ \_/ /_/ /    Y    \/        \ |     \     |    |   
-#\____|__  /__|____(____  /\____ \____|__  /_______  / \___  /     |____|   
-#        \/             \/      \/       \/        \/      \/               
-# This project is not intended to cause any harm. However just in case, dont use it in production.
-# Use at your own risk. There is no turning back. No option to pretend you didn't know what you do.
-# ThreatHunt simulates dark magic so that folks can learn threat hunting.
-
 $ScriptRun = Get-Location 
 
 Function Menu 
