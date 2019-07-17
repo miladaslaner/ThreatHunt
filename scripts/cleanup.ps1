@@ -43,15 +43,13 @@ Get-MpPreference | fl DisableScriptScanning
 Write-Host "Set EnableControlledFolderAccess to Disabled If currently setup as AuditMode or Enabled"
 $Preferences = Get-MpPreference
 $Preferences.EnableControlledFolderAccess
-if ($Preferences.EnableControlledFolderAccess -eq 1) {Set-MpPreference -EnableControlledFolderAccess 0}
-elseif ($Preferences.EnableControlledFolderAccess -eq 2) {Set-MpPreference -EnableControlledFolderAccess 0}
+if ($Preferences.EnableControlledFolderAccess -eq 0) {Set-MpPreference -EnableControlledFolderAccess $OldCFA}
 Get-MpPreference | fl EnableControlledFolderAccess
 
 Write-Host "Set EnableNetworkProtection to Disabled If currently setup as AuditMode or Enabled"
 $Preferences = Get-MpPreference
 $Preferences.EnableNetworkProtection
-if ($Preferences.EnableNetworkProtection -eq 1) {Set-MpPreference -EnableNetworkProtection 0}
-elseif ($Preferences.EnableNetworkProtection -eq 2) {Set-MpPreference -EnableNetworkProtection 0}
+if ($Preferences.EnableNetworkProtection -eq 1) {Set-MpPreference -EnableNetworkProtection $OldNP}
 Get-MpPreference | fl EnableNetworkProtection
 
 Set-NetFirewallProfile -Enabled True
