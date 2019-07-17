@@ -46,6 +46,8 @@ Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun
 Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Termainl Server Client/Default" -Name "PowerShell" -Force
 
 Write-Host "Uninstall Nmap silently"
-powershell.exe $env:ProgramFiles(x86)\Nmap\uninstall.exe /S
+cd ${env:ProgramFiles(x86)}\Nmap
+.\Uninstall.exe /S
 Write-Host "Uninstall Npcap silently"
-powershell.exe $env:ProgramFiles\Npcap\uninstall.exe /S
+cd $env:ProgramFiles\Npcap
+.\uninstall.exe /S
