@@ -8,10 +8,31 @@
 
 # Disable Microsoft Defender ATP Next Generation Protection
 Write-Host "Attempting to disable functionality of Microsoft Defender ATP Next Generation Protection"
-New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Value 1 -PropertyType "DWord"
-New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableBehaviorMonitoring" -Value 1 -PropertyType "DWord"
-New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableOnAccessProtection" -Value 1 -PropertyType "DWord"
-New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableScanOnRealtimeEnable" -Value 1 -PropertyType "DWord"
+Write-Host "Check If Defender DisableBehaviorMonitoring is enabled and If so disable"
+$Preferences = Get-MpPreference
+$Preferences.DisableBehaviorMonitoring
+if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $False}
+Get-MpPreference | fl DisableBehaviorMonitoring
+Write-Host "Check If Defender DisableBlockAtFirstSeen is enabled and If so disable"
+$Preferences = Get-MpPreference
+$Preferences.DisableBlockAtFirstSeen
+if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $False}
+Get-MpPreference | fl DisableBlockAtFirstSeen
+Write-Host "Check If Defender DisableIOAVProtection is enabled and If so disable"
+$Preferences = Get-MpPreference
+$Preferences.DisableIOAVProtection
+if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $False}
+Get-MpPreference | fl DisableIOAVProtection
+Write-Host "Check If Defender DisableRealtimeMonitoring is enabled and If so disable"
+$Preferences = Get-MpPreference
+$Preferences.DisableRealtimeMonitoring
+if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $False}
+Get-MpPreference | fl DisableRealtimeMonitoring
+Write-Host "Check If Defender DisableScriptScanning is enabled and If so disable"
+$Preferences = Get-MpPreference
+$Preferences.DisableScriptScanning
+if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $False}
+Get-MpPreference | fl DisableScriptScanning
 Stop-Service -Name WinDefend -Force -PassThru -ErrorAction Ignore
 Stop-Service -Name WdNisSvc -Force -PassThru -ErrorAction Ignore
 
