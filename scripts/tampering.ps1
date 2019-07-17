@@ -11,31 +11,31 @@ Write-Host "Attempting to disable functionalities of Microsoft Defender ATP Next
 
 Write-Host "Check If Defender DisableBehaviorMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
-$Preferences.DisableBehaviorMonitoring
+$OldDisableBehaviorMonitoring = $Preferences.DisableBehaviorMonitoring
 if ($Preferences.DisableBehaviorMonitoring -eq $False) {Set-MpPreference -DisableBehaviorMonitoring $True}
 Get-MpPreference | fl DisableBehaviorMonitoring
 
 Write-Host "Check If Defender DisableBlockAtFirstSeen is enabled and If so disable"
 $Preferences = Get-MpPreference
-$Preferences.DisableBlockAtFirstSeen
+$OldDisableBlockAtFirstSeen = $Preferences.DisableBlockAtFirstSeen
 if ($Preferences.DisableBlockAtFirstSeen -eq $False) {Set-MpPreference -DisableBlockAtFirstSeen $True}
 Get-MpPreference | fl DisableBlockAtFirstSeen
 
 Write-Host "Check If Defender DisableIOAVProtection is enabled and If so disable"
 $Preferences = Get-MpPreference
-$Preferences.DisableIOAVProtection
+$OldDisableIOAVProtection = $Preferences.DisableIOAVProtection
 if ($Preferences.DisableIOAVProtection -eq $False) {Set-MpPreference -DisableIOAVProtection $True}
 Get-MpPreference | fl DisableIOAVProtection
 
 Write-Host "Check If Defender DisableRealtimeMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
-$Preferences.DisableRealtimeMonitoring
+$OldDisableRealtimeMonitoring = $Preferences.DisableRealtimeMonitoring
 if ($Preferences.DisableRealtimeMonitoring -eq $False) {Set-MpPreference -DisableRealtimeMonitoring $True}
 Get-MpPreference | fl DisableRealtimeMonitoring
 
 Write-Host "Check If Defender DisableScriptScanning is enabled and If so disable"
 $Preferences = Get-MpPreference
-$Preferences.DisableScriptScanning
+$OldDisableScriptScanning = $Preferences.DisableScriptScanning
 if ($Preferences.DisableScriptScanning -eq $False) {Set-MpPreference -DisableScriptScanning $True}
 Get-MpPreference | fl DisableScriptScanning
 
