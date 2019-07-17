@@ -20,6 +20,10 @@ Let's say you just got started in your career as a threat hunter or you are a ex
 
 ThreatHunt installs and leverages some 3rd-party tools and files such as PSExec, NMAP, EICAR test files etc. All of these are subject to the license terms of the respective intellectual property owner.
 
+# Known Issues
+
+1. Cleanup.ps1 configures ASR rules into AuditMode. If ASR rules previously were Disabled please manually adjust.
+
 # Disclaimer
 
 While there are no malicious files inside this GitHub repositroy its important to call out that you are responsible for your environment. Make sure to assess any tools you deploy wisely before using in production environments. 
