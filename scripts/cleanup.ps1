@@ -17,30 +17,42 @@ Write-Host "Remove tampering activities"
 
 Write-Host "DisableBehaviorMonitoring is enabled again"
 $Preferences = Get-MpPreference
-$Preferences.DisableBehaviorMonitoring
-if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $False}
+if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $OldDisableBehaviorMonitoring}
 Get-MpPreference | fl DisableBehaviorMonitoring
+
 Write-Host "Defender DisableBlockAtFirstSeen is enabled again"
 $Preferences = Get-MpPreference
-$Preferences.DisableBlockAtFirstSeen
-if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $False}
+if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $OldDisableBlockAtFirstSeen}
 Get-MpPreference | fl DisableBlockAtFirstSeen
+
 Write-Host "Defender DisableIOAVProtection is enabled again"
 $Preferences = Get-MpPreference
-$Preferences.DisableIOAVProtection
-if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $False}
+if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableIOAVProtection
+
 Write-Host "Defender DisableRealtimeMonitoring is enabled again"
 $Preferences = Get-MpPreference
-$Preferences.DisableRealtimeMonitoring
-if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $False}
+if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableRealtimeMonitoring
+
 Write-Host "Defender DisableScriptScanning is enabled again"
 $Preferences = Get-MpPreference
-$Preferences.DisableScriptScanning
-if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $False}
+if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableScriptScanning
 
+Write-Host "Set EnableControlledFolderAccess to Disabled If currently setup as AuditMode or Enabled"
+$Preferences = Get-MpPreference
+$Preferences.EnableControlledFolderAccess
+if ($Preferences.EnableControlledFolderAccess -eq 1) {Set-MpPreference -EnableControlledFolderAccess 0}
+elseif ($Preferences.EnableControlledFolderAccess -eq 2) {Set-MpPreference -EnableControlledFolderAccess 0}
+Get-MpPreference | fl EnableControlledFolderAccess
+
+Write-Host "Set EnableNetworkProtection to Disabled If currently setup as AuditMode or Enabled"
+$Preferences = Get-MpPreference
+$Preferences.EnableNetworkProtection
+if ($Preferences.EnableNetworkProtection -eq 1) {Set-MpPreference -EnableNetworkProtection 0}
+elseif ($Preferences.EnableNetworkProtection -eq 2) {Set-MpPreference -EnableNetworkProtection 0}
+Get-MpPreference | fl EnableNetworkProtection
 
 Set-NetFirewallProfile -Enabled True
 Set-MpPreference -EnableControlledFolderAccess AuditMode
