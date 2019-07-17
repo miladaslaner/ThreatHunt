@@ -14,10 +14,34 @@ Write-Host "Delete magic folder"
 Remove-Item -Force -Path $ThreatBox
 
 Write-Host "Remove tampering activities"
-Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Force
-Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableBehaviorMonitoring" -Force
-Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableOnAccessProtection" -Force
-Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableScanOnRealtimeEnable" -Force
+
+Write-Host "DisableBehaviorMonitoring is enabled again"
+$Preferences = Get-MpPreference
+$Preferences.DisableBehaviorMonitoring
+if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $False}
+Get-MpPreference | fl DisableBehaviorMonitoring
+Write-Host "Defender DisableBlockAtFirstSeen is enabled again"
+$Preferences = Get-MpPreference
+$Preferences.DisableBlockAtFirstSeen
+if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $False}
+Get-MpPreference | fl DisableBlockAtFirstSeen
+Write-Host "Defender DisableIOAVProtection is enabled again"
+$Preferences = Get-MpPreference
+$Preferences.DisableIOAVProtection
+if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $False}
+Get-MpPreference | fl DisableIOAVProtection
+Write-Host "Defender DisableRealtimeMonitoring is enabled again"
+$Preferences = Get-MpPreference
+$Preferences.DisableRealtimeMonitoring
+if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $False}
+Get-MpPreference | fl DisableRealtimeMonitoring
+Write-Host "Defender DisableScriptScanning is enabled again"
+$Preferences = Get-MpPreference
+$Preferences.DisableScriptScanning
+if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $False}
+Get-MpPreference | fl DisableScriptScanning
+
+
 Set-NetFirewallProfile -Enabled True
 Set-MpPreference -EnableControlledFolderAccess AuditMode
 Set-MpPreference -EnableNetworkProtection AuditMode
