@@ -7,35 +7,33 @@
 
 Write-Host "Time to cleanup..."
 
-Write-Host "Remove network share"
+Write-Host "Remove previously created network share"
 Remove-SmbShare -Force -Name "ThreatBox"
 
-Write-Host "Delete temporary folder"
+Write-Host "Delete previously created folder"
 Remove-Item -Force -Path $ThreatBox
 
-Write-Host "Undo setting changes to Microsoft Defender ATP Next Generation Protection"
-
-Write-Host "DisableBehaviorMonitoring is enabled again"
+Write-Host "DisableBehaviorMonitoring configured to default"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $OldDisableBehaviorMonitoring}
 Get-MpPreference | fl DisableBehaviorMonitoring
 
-Write-Host "DisableBlockAtFirstSeen is enabled again"
+Write-Host "DisableBlockAtFirstSeen configured to default"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $OldDisableBlockAtFirstSeen}
 Get-MpPreference | fl DisableBlockAtFirstSeen
 
-Write-Host "DisableIOAVProtection is enabled again"
+Write-Host "DisableIOAVProtection configured to default"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableIOAVProtection
 
-Write-Host "DisableRealtimeMonitoring is enabled again"
+Write-Host "DisableRealtimeMonitoring configured to default"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableRealtimeMonitoring
 
-Write-Host "DisableScriptScanning is enabled again"
+Write-Host "DisableScriptScanning configured to default"
 $Preferences = Get-MpPreference
 if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $OldDisableIOAVProtection}
 Get-MpPreference | fl DisableScriptScanning
@@ -61,14 +59,19 @@ Add-MpPreference -AttackSurfaceReductionRules_Ids D4F940AB-401B-4EFC-AADC-AD5F3C
 Write-Host "Disable option to do RDP without an authenticated user"
 (Get-WmiObject -class "Win32_TSGeneralSetting" -Namespace root\cimv2\terminalservices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(1)
 
+Write-Host "Delete previously created Windows service"
 Get-Service -Displayname "*Friendly Friend*" | ForEach-object{ cmd /c  sc delete $_.Name}
 
+Write-Host "Delete previously created RunAs registry value"
 Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Name "PowerShell" -Force
-Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Termainl Server Client/Default" -Name "PowerShell" -Force
+
+Write-Host "Delete previously created Termainl Service Client registry value"
+Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Terminal Server Client/Default" -Name "PowerShell" -Force
 
 Write-Host "Uninstall Nmap silently"
 cd ${env:ProgramFiles(x86)}\Nmap
 .\Uninstall.exe /S
+
 Write-Host "Uninstall Npcap silently"
 cd $env:ProgramFiles\Npcap
 .\uninstall.exe /S
