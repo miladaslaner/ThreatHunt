@@ -7,44 +7,70 @@
 
 
 # Disable Microsoft Defender ATP Next Generation Protection
-Write-Host "Attempting to disable functionality of Microsoft Defender ATP Next Generation Protection"
+Write-Host "Attempting to disable functionalities of Microsoft Defender ATP Next Generation Protection"
+
 Write-Host "Check If Defender DisableBehaviorMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableBehaviorMonitoring
 if ($Preferences.DisableBehaviorMonitoring -eq $False) {Set-MpPreference -DisableBehaviorMonitoring $True}
 Get-MpPreference | fl DisableBehaviorMonitoring
+
 Write-Host "Check If Defender DisableBlockAtFirstSeen is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableBlockAtFirstSeen
 if ($Preferences.DisableBlockAtFirstSeen -eq $False) {Set-MpPreference -DisableBlockAtFirstSeen $True}
 Get-MpPreference | fl DisableBlockAtFirstSeen
+
 Write-Host "Check If Defender DisableIOAVProtection is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableIOAVProtection
 if ($Preferences.DisableIOAVProtection -eq $False) {Set-MpPreference -DisableIOAVProtection $True}
 Get-MpPreference | fl DisableIOAVProtection
+
 Write-Host "Check If Defender DisableRealtimeMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableRealtimeMonitoring
 if ($Preferences.DisableRealtimeMonitoring -eq $False) {Set-MpPreference -DisableRealtimeMonitoring $True}
 Get-MpPreference | fl DisableRealtimeMonitoring
+
 Write-Host "Check If Defender DisableScriptScanning is enabled and If so disable"
 $Preferences = Get-MpPreference
 $Preferences.DisableScriptScanning
 if ($Preferences.DisableScriptScanning -eq $False) {Set-MpPreference -DisableScriptScanning $True}
 Get-MpPreference | fl DisableScriptScanning
+
+Write-Host "Attempting to disable WinDefend service"
 Stop-Service -Name WinDefend -Force -PassThru -ErrorAction Ignore
+
+Write-Host "Attempting to disable WdNisSvc service"
 Stop-Service -Name WdNisSvc -Force -PassThru -ErrorAction Ignore
 
 # Disable Microsoft Defender ATP Endpoint Detection & Response
-Write-Host "Attempting to disable functionality of Microsoft Defender ATP Endpoint Detection Response"
+Write-Host "Attempting to disable functioanlity of Microsoft Defender ATP Endpoint Detection Response"
+
+Write-Host "Attempting to disable Sense service"
 Stop-Service -Name Sense -Force -PassThru -ErrorAction Ignore
+
+Write-Host "Attempting to kill MSsense.exe"
 Taskkill /s system /f /IM MSsense.exe
 
 # Disable Microsoft Defender ATP Attack Surface Reduction
 Write-Host "Attempting to disable functionality of Microsoft Defender ATP Attack Surface Reduction"
-Set-MpPreference -EnableControlledFolderAccess Disabled
-Set-MpPreference -EnableNetworkProtection Disabled
+
+Write-Host "Set EnableControlledFolderAccess to Disabled If currently setup as AuditMode or Enabled"
+$Preferences = Get-MpPreference
+$Preferences.EnableControlledFolderAccess
+if ($Preferences.EnableControlledFolderAccess -eq 1) {Set-MpPreference -EnableControlledFolderAccess 0}
+elseif ($Preferences.EnableControlledFolderAccess -eq 2) {Set-MpPreference -EnableControlledFolderAccess 0}
+Get-MpPreference | fl EnableControlledFolderAccess
+
+Write-Host "Set EnableNetworkProtection to Disabled If currently setup as AuditMode or Enabled"
+$Preferences = Get-MpPreference
+$Preferences.EnableNetworkProtection
+if ($Preferences.EnableNetworkProtection -eq 1) {Set-MpPreference -EnableNetworkProtection 0}
+elseif ($Preferences.EnableNetworkProtection -eq 2) {Set-MpPreference -EnableNetworkProtection 0}
+Get-MpPreference | fl EnableNetworkProtection
+
 Add-MpPreference -AttackSurfaceReductionRules_Ids BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550 -AttackSurfaceReductionRules_Actions Disabled
 Add-MpPreference -AttackSurfaceReductionRules_Ids D4F940AB-401B-4EFC-AADC-AD5F3C50688A -AttackSurfaceReductionRules_Actions Disabled
 Add-MpPreference -AttackSurfaceReductionRules_Ids 3B576869-A4EC-4529-8536-B80A7769E899 -AttackSurfaceReductionRules_Actions Disabled
