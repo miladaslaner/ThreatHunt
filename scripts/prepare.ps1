@@ -54,3 +54,12 @@ Copy-Item -Path $env:SystemDrive\Windows\System32\cmd.exe -Destination $ThreatBo
 
 Write-Host "Copy powercfg.exe to new folder location"
 Copy-Item -Path $env:SystemDrive\Windows\System32\powercfg.exe -Destination $ThreatBox\tools\powercfg.exe
+
+Write-Host "Copy powercfg.exe to new folder location"
+New-Item -Force -ItemType $ThreatBox\MySql.Data.dll.txt
+
+Write-Host "Create MySql.Data.dll.txt"
+New-Item $ThreatBox\tools\MySql.Data.dll.txt
+
+Write-Host "Create MySql.Data.dll.txt"
+New-Item $ThreatBox\tools\MySql.Data3.dll
