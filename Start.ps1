@@ -14,7 +14,7 @@ Function Menu
     Write-Host -Object '                \/            \/     \/             \/            \/      ' -ForegroundColor Blue
     Write-Host -Object '****************************'
     Write-Host -Object '****************************'
-    Write-Host -Object ' Follow the white rabbit..'
+    Write-Host -Object '   Follow the white rabbit'
     Write-Host -Object '****************************'
     Write-Host -Object ''
     Write-Host -Object '1.  Prepare Environment '
