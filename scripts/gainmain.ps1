@@ -6,21 +6,19 @@
 #                 \/            \/     \/             \/            \/  
 
 # Copy calc.exe with file name of famous tools
-Write-Host "Calc.exe is becoming mimikatz.exe and more..."
+Write-Host "Copy calc.exe as mimikatz.exe"
 Copy-Item -Path $env:SystemDrive\Windows\System32\calc.exe -Destination $ThreatBox\tools\mimikatz.exe
-Copy-Item -Path $env:SystemDrive\Windows\System32\calc.exe -Destination $ThreatBox\tools\mimi.kirbi
+
+Write-Host "Copy conhost.exe as mimi.kirbi"
+Copy-Item -Path $env:SystemDrive\Windows\System32\conhost.exe -Destination $ThreatBox\tools\mimi.kirbi
 
 # Create Windows Service
-Write-Host "Time to create a dummy windows service..."
-New-Service -Name "ThreatBox3" -StartupType Automatic -BinaryPathName "$ThreatBox\tools\mimikatz.exe" -DisplayName "Friendly Friend3"
+Write-Host "Create dummy Windows servce"
+New-Service -Name "ThreatBox" -StartupType Automatic -BinaryPathName "$ThreatBox\tools\mimikatz.exe" -DisplayName "Friendly Friend"
 Start-Service -Name 'ThreatBox' -ErrorAction Ignore
 
 # Download test files
-Write-Host "Downloading EICAR"
-Invoke-WebRequest http://2016.eicar.org/download/eicar_com.zip -OutFile $ThreatBox\tools\eicar.zip
-Expand-Archive $ThreatBox\tools\eicar.zip -DestinationPath $ThreatBox\tools\eicar
-
-Write-Host "Downloading ASR Samples"
+Write-Host "Downloading samples"
 Invoke-WebRequest https://demo.wd.microsoft.com/Content/ASRSamplesAll.zip -OutFile $ThreatBox\tools\ASRSamples.zip
 Expand-Archive $ThreatBox\tools\ASRSamples.zip -DestinationPath $ThreatBox\tools\ASR
 
@@ -45,6 +43,26 @@ $unsignedrand64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetB
 powershell.exe -encoded "$unsignedrand64"
 
 # Persistance
-Write-Host "Dropping persistance"
-New-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "DWord"
-New-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Termainl Server Client\Default" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "DWord"
+Write-Host "Creating persistance through AutoRun registry hive"
+$regTSC = Test-Path -Path "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun"
+if ($regTSC-eq $False)
+{
+New-Item -Path "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Force
+New-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "String"
+}
+elseif ($regTSC -eq $regTSC -eq $True)
+{
+New-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "String"
+}
+
+Write-Host "Creating persistance through Termainal Service client registry hive"
+$regTSC = Test-Path -Path "HKCU:\SOFTWARE\Microsoft\Terminal Server Client\Default"
+if ($regTSC-eq $False)
+{
+New-Item -Path "HKCU:\SOFTWARE\Microsoft\Terminal Server Client\Default" -Force
+New-ItemProperty "HKCU:\SOFTWARE\Microsoft\Terminal Server Client\Default" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "String"
+}
+elseif ($regTSC -eq $regTSC -eq $True)
+{
+New-ItemProperty "HKCU:\SOFTWARE\Microsoft\Terminal Server Client\Default" -Name "PowerShell" -Value "powershell.exe mshta https://microsoft.com" -PropertyType "String"
+}
