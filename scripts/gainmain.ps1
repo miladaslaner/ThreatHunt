@@ -25,8 +25,8 @@ Invoke-WebRequest https://demo.wd.microsoft.com/Content/ASRSamplesAll.zip -OutFi
 Expand-Archive $ThreatBox\tools\ASRSamples.zip -DestinationPath $ThreatBox\tools\ASR
 
 # Clear event logs and create totally suspicious ones
-Write-Host "Just deleted your Application, Security and System event logs..."
-Clear-EventLog –LogName System, Application, Security
+Write-Host "Delete System, Application and Security event logs"
+Clear-EventLog -LogName System, Application, Security
 Write-EventLog -LogName System -Source "EventLog" -EntryType Information -EventId 1 -Message "Fun Time"
 
 # Start
