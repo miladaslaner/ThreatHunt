@@ -6,8 +6,6 @@
 #                 \/            \/     \/             \/            \/  
 
 # Disable Microsoft Defender ATP Next Generation Protection
-Write-Host "Attempting to disable functionalities of Microsoft Defender ATP Next Generation Protection"
-
 Write-Host "Check If Defender DisableBehaviorMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
 $OldDisableBehaviorMonitoring = $Preferences.DisableBehaviorMonitoring
@@ -45,8 +43,6 @@ Write-Host "Attempting to disable WdNisSvc service"
 Stop-Service -Name WdNisSvc -Force -PassThru -ErrorAction Ignore
 
 # Disable Microsoft Defender ATP Endpoint Detection & Response
-Write-Host "Attempting to disable functioanlity of Microsoft Defender ATP Endpoint Detection Response"
-
 Write-Host "Attempting to disable Sense service"
 Stop-Service -Name Sense -Force -PassThru -ErrorAction Ignore
 
