@@ -6,8 +6,12 @@
 #                 \/            \/     \/             \/            \/  
 
 # Enable Remote Desktop Connection
-Write-Host "Enable option to do RDP without an authenticated user"
+Write-Host "Set SetUserAuthenticationRequired to 0"
+$Preferences = Get-WmiObject -class "Win32_TSGeneralSetting" -Namespace root\cimv2\terminalservices
+if ($Preferences.UserAuthenticationRequired -eq 1)
+{
 (Get-WmiObject -class "Win32_TSGeneralSetting" -Namespace root\cimv2\terminalservices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0)
+}
 
 # C2C communication
 Write-Host "Some random C2C communication"
