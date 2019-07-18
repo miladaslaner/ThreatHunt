@@ -29,23 +29,15 @@ Write-EventLog -LogName System -Source "EventLog" -EntryType Information -EventI
 
 # Start
 Write-Host "Start mimikatz.exe (calc.exe) with Base64 encoding"
-Start-Process -FilePath "$ThreatBox\tools\mimikatz.exe" -ArgumentList "-force"
-$mimi64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\mimikatz.exe -force'))
-powershell.exe -encoded "$mimi64"
-
-Write-Host "Start ransomware_testfile_exe.exe"
-Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamples\ransomware_testfile_exe.exe"
-powershell.exe $ThreatBox\tools\ASRSamples\ransomware_testfile_exe.exe
-
-Write-Host "Start ransomware_testfile_doc.docm with Base64 encoding"
-Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamples\ransomware_testfile_doc.docm"
-$randoc64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\ASRSamples\ransomware_testfile_doc.docm'))
-powershell.exe -encoded "$randoc64"
+$mimi64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('-force'))
+Start-Process -FilePath "$ThreatBox\tools\mimikatz.exe" -ArgumentList "-encoded $mimi64"
 
 Write-Host "Start UNSIGNED_ransomware_test_exe.exe with Base64 encoding"
-Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamples\UNSIGNED_ransomware_test_exe.exe"
-$unsignedrand64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('$ThreatBox\tools\ASRSamples\UNSIGNED_ransomware_test_exe.exe -force'))
-powershell.exe -encoded "$unsignedrand64"
+$unsignedrand64 = [convert]::ToBase64String([System.Text.encoding]::Unicode.GetBytes('-force'))
+Start-Process -FilePath "$ThreatBox\tools\UNSIGNED_ransomware_test_exe.exe" -ArgumentList "-encoded $unsignedrand64"
+
+Write-Host "Start ransomware_testfile_doc.docm"
+Start-Process -FilePath "$ThreatBox\tools\ASR\ASRSamplesAll\ransomware_testfile_doc.docm"
 
 #Execution
 Write-Host "Use certutil.exe with decode syntax"
