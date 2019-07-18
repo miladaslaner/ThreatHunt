@@ -6,7 +6,7 @@
 #                 \/            \/     \/             \/            \/  
 
 # Send email
-Write-Host "Lets send a email with all the log files"
+Write-Host "Send e-mail with your O365 account"
 $O365user = Read-Host -Prompt 'Your O365 email address username@domain.com'
 $O365pw = Read-Host -Prompt 'Your password'
 $secpasswd = ConvertTo-SecureString $O365pw -AsPlainText -Force
