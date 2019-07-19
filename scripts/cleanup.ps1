@@ -70,7 +70,7 @@ Write-Host "Delete previously created RunAs registry value"
 Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Command Processor\AutoRun" -Name "PowerShell" -Force
 
 Write-Host "Delete previously created Termainl Service Client registry value"
-Remove-ItemProperty "HKCU:\SOFTWARE\Policies\Microsoft\Terminal Server Client/Default" -Name "PowerShell" -Force
+Remove-ItemProperty "HKCU:\SOFTWARE\Microsoft\Terminal Server Client\Default" -Name "PowerShell" -Force
 
 Write-Host "Uninstall Nmap silently"
 cd ${env:ProgramFiles(x86)}\Nmap
