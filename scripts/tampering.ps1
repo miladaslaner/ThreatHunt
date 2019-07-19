@@ -9,31 +9,52 @@
 Write-Host "Check If Defender DisableBehaviorMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
 $OldDisableBehaviorMonitoring = $Preferences.DisableBehaviorMonitoring
-if ($Preferences.DisableBehaviorMonitoring -eq $False) {Set-MpPreference -DisableBehaviorMonitoring $True}
+if ($Preferences.DisableBehaviorMonitoring -eq $False)
+{
+Set-MpPreference -DisableBehaviorMonitoring $True
+New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableBehaviorMonitoring" -Value 1 -PropertyType "DWord"
+	}
 Get-MpPreference | fl DisableBehaviorMonitoring
+Stop-Service -Name WinDefend -Force -PassThru -ErrorAction Ignore
 
 Write-Host "Check If Defender DisableBlockAtFirstSeen is enabled and If so disable"
 $Preferences = Get-MpPreference
 $OldDisableBlockAtFirstSeen = $Preferences.DisableBlockAtFirstSeen
-if ($Preferences.DisableBlockAtFirstSeen -eq $False) {Set-MpPreference -DisableBlockAtFirstSeen $True}
+if ($Preferences.DisableBlockAtFirstSeen -eq $False)
+{
+Set-MpPreference -DisableBlockAtFirstSeen $True
+New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableBlockAtFirstSeen" -Value 1 -PropertyType "DWord"
+}
 Get-MpPreference | fl DisableBlockAtFirstSeen
 
 Write-Host "Check If Defender DisableIOAVProtection is enabled and If so disable"
 $Preferences = Get-MpPreference
 $OldDisableIOAVProtection = $Preferences.DisableIOAVProtection
-if ($Preferences.DisableIOAVProtection -eq $False) {Set-MpPreference -DisableIOAVProtection $True}
+if ($Preferences.DisableIOAVProtection -eq $False)
+{
+Set-MpPreference -DisableIOAVProtection $True
+New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableIOAVProtection" -Value 1 -PropertyType "DWord"
+}
 Get-MpPreference | fl DisableIOAVProtection
 
 Write-Host "Check If Defender DisableRealtimeMonitoring is enabled and If so disable"
 $Preferences = Get-MpPreference
 $OldDisableRealtimeMonitoring = $Preferences.DisableRealtimeMonitoring
-if ($Preferences.DisableRealtimeMonitoring -eq $False) {Set-MpPreference -DisableRealtimeMonitoring $True}
+if ($Preferences.DisableRealtimeMonitoring -eq $False)
+{
+Set-MpPreference -DisableRealtimeMonitoring $True
+New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableRealtimeMonitoring" -Value 1 -PropertyType "DWord"
+}
 Get-MpPreference | fl DisableRealtimeMonitoring
 
 Write-Host "Check If Defender DisableScriptScanning is enabled and If so disable"
 $Preferences = Get-MpPreference
 $OldDisableScriptScanning = $Preferences.DisableScriptScanning
-if ($Preferences.DisableScriptScanning -eq $False) {Set-MpPreference -DisableScriptScanning $True}
+if ($Preferences.DisableScriptScanning -eq $False)
+{
+Set-MpPreference -DisableScriptScanning $True
+New-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableScriptScanning" -Value 1 -PropertyType "DWord"
+}
 Get-MpPreference | fl DisableScriptScanning
 
 Write-Host "Attempting to disable WinDefend service"
