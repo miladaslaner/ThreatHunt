@@ -5,8 +5,6 @@
 #   |____|   |___|  /__|    \___  >____  /__|   \___|_  /|____/|___|  /__|
 #                 \/            \/     \/             \/            \/  
 
-Write-Host "Time to cleanup..."
-
 Write-Host "Remove previously created network share"
 Remove-SmbShare -Force -Name "ThreatBox"
 
@@ -15,27 +13,47 @@ Remove-Item -Force -Path $ThreatBox
 
 Write-Host "DisableBehaviorMonitoring configured to default"
 $Preferences = Get-MpPreference
-if ($Preferences.DisableBehaviorMonitoring -eq $True) {Set-MpPreference -DisableBehaviorMonitoring $OldDisableBehaviorMonitoring}
+if ($Preferences.DisableBehaviorMonitoring -eq $True)
+{
+Set-MpPreference -DisableBehaviorMonitoring $OldDisableBehaviorMonitoring
+Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableBehaviorMonitoring" -Force
+}
 Get-MpPreference | fl DisableBehaviorMonitoring
 
 Write-Host "DisableBlockAtFirstSeen configured to default"
 $Preferences = Get-MpPreference
-if ($Preferences.DisableBlockAtFirstSeen -eq $True) {Set-MpPreference -DisableBlockAtFirstSeen $OldDisableBlockAtFirstSeen}
+if ($Preferences.DisableBlockAtFirstSeen -eq $True)
+{
+Set-MpPreference -DisableBlockAtFirstSeen $OldDisableBlockAtFirstSeen
+Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableBlockAtFirstSeen" -Force
+}
 Get-MpPreference | fl DisableBlockAtFirstSeen
 
 Write-Host "DisableIOAVProtection configured to default"
 $Preferences = Get-MpPreference
-if ($Preferences.DisableIOAVProtection -eq $True) {Set-MpPreference -DisableIOAVProtection $OldDisableIOAVProtection}
+if ($Preferences.DisableIOAVProtection -eq $True)
+{
+Set-MpPreference -DisableIOAVProtection $OldDisableIOAVProtection
+Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableIOAVProtection" -Force
+}
 Get-MpPreference | fl DisableIOAVProtection
 
 Write-Host "DisableRealtimeMonitoring configured to default"
 $Preferences = Get-MpPreference
-if ($Preferences.DisableRealtimeMonitoring -eq $True) {Set-MpPreference -DisableRealtimeMonitoring $OldDisableIOAVProtection}
+if ($Preferences.DisableRealtimeMonitoring -eq $True)
+{
+Set-MpPreference -DisableRealtimeMonitoring $OldDisableRealtimeMonitoring
+Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableRealtimeMonitoring" -Force
+}
 Get-MpPreference | fl DisableRealtimeMonitoring
 
 Write-Host "DisableScriptScanning configured to default"
 $Preferences = Get-MpPreference
-if ($Preferences.DisableScriptScanning -eq $True) {Set-MpPreference -DisableScriptScanning $OldDisableIOAVProtection}
+if ($Preferences.DisableScriptScanning -eq $True)
+{
+Set-MpPreference -DisableScriptScanning $OldDisableScriptScanning
+Remove-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableScriptScanning" -Force
+}
 Get-MpPreference | fl DisableScriptScanning
 
 Write-Host "EnableControlledFolderAccess configured to default"
