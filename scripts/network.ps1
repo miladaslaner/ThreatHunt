@@ -13,6 +13,11 @@ if ($Preferences.UserAuthenticationRequired -eq 1)
 (Get-WmiObject -class "Win32_TSGeneralSetting" -Namespace root\cimv2\terminalservices -Filter "TerminalName='RDP-tcp'").SetUserAuthenticationRequired(0)
 }
 
+# Download Ncat
+Write-Host "Download ncat-portable-5.59BETA1.zip from Nmap.org"
+Invoke-WebRequest http://nmap.org/dist/ncat-portable-5.59BETA1.zip -OutFile $ThreatBox\tools\ncat.zip
+Expand-Archive $ThreatBox\tools\ncat.zip -DestinationPath $ThreatBox\tools\ncat
+
 # Grab available endpoints in network based on nmap scan and do psexec
 Write-Host "Use results of Nmap to leverage PSExec"
 $nmaplog = (Get-Content -Path $ThreatBox\logs\nmap.log | Where-Object {$_ -like '*Discovered open port*'})
