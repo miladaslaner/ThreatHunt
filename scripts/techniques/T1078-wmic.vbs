@@ -1,0 +1,1 @@
+wmic /node:127.0.0.1 /user:"%valueusername%" /password:"%valuepw%" process call create "ping google.com -t"
