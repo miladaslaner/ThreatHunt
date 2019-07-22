@@ -1,4 +1,9 @@
-$ScriptRun = Get-Location 
+# ___________.__                          __     ___ ___               __  
+# \__    ___/|  |_________   ____ _____ _/  |_  /   |   \ __ __  _____/  |
+#   |    |   |  |  \_  __ \_/ __ \\__  \\   __\/    ~    \  |  \/    \   __\
+#   |    |   |   Y  \  | \/\  ___/ / __ \|  |  \    Y    /  |  /   |  \  |
+#   |____|   |___|  /__|    \___  >____  /__|   \___|_  /|____/|___|  /__|
+#                 \/            \/     \/             \/            \/  
 
 Function Menu 
 {
@@ -17,14 +22,20 @@ Function Menu
     Write-Host -Object '   Follow the white rabbit'
     Write-Host -Object '****************************'
     Write-Host -Object ''
-    Write-Host -Object '1.  Prepare Environment '
-    Write-Host -Object '2.  Tampering OS Security '
-    Write-Host -Object '3.  Footprinting and Reconnaissance '
-    Write-Host -Object '4.  Gaining and Maintaining Access '
-    Write-Host -Object '5.  Network Discovery and Access '
-    Write-Host -Object '6.  Data Exfiltration '
-    Write-Host -Object '7.  Clean Up '
-    Write-Host -Object 'Q.  Quit'
+    Write-Host -Object '0.   Prerequisites '
+    Write-Host -Object '1.   TA0001 Initial Access '
+    Write-Host -Object '2.   TA0002 Execution '
+    Write-Host -Object '3.   TA0003 Persistence '
+    Write-Host -Object '4.   TA0004 Privilege Escalation '
+    Write-Host -Object '5.   TA0005 Defense Evasion '
+    Write-Host -Object '6.   TA0006 Credential Access '
+    Write-Host -Object '7.   TA0007 Discovery '
+    Write-Host -Object '8.   TA0008 Lateral Movement '
+    Write-Host -Object '9.   TA0009 Collection '
+    Write-Host -Object '10.  TA0011 Command and Control '
+    Write-Host -Object '11.  TA0010 Exfiltration '
+    Write-Host -Object '12.  TA0040 Impact '
+    Write-Host -Object 'Q.   Quit'
     Write-Host -Object ''
     Write-Host -Object '****************************'
     Write-Host -Object '*********@MiladMSFT*********'
@@ -32,28 +43,46 @@ Function Menu
     $Menu = Read-Host -Prompt '(0-6 or Q to Quit)'
     switch ($Menu) 
         {
-           1 
-            {."$ScriptRun\scripts\prepare.ps1"
+           0 
+            {.".\scripts\prerequisites.ps1"
             pause}
-            2 
-            {."$ScriptRun\scripts\tampering.ps1"
+            1 
+            {.".\scripts\tactics\initialaccess.ps1"
+            pause}
+            2
+            {.".\scripts\tactics\execution.ps1"
             pause}
             3 
-            {."$ScriptRun\scripts\scanning.ps1"
+            {.".\scripts\tactics\persistence.ps1"
             pause}
             4 
-            {."$ScriptRun\scripts\gainmain.ps1"
+            {.".\scripts\tactics\privilegeescalation.ps1"
             pause}
-            5 
-            {."$ScriptRun\scripts\network.ps1"
-            pause}
-            6
-            {."$ScriptRun\scripts\dataexfiltration.ps1"
+            5
+            {.".\scripts\tactics\defenseevasion.ps1"
             pause}           
+            6
+            {.".\scripts\tactics\credentialaccess.ps1"
+            pause}  
             7
-            {."$ScriptRun\scripts\cleanup.ps1"
+            {.".\scripts\tactics\discovery.ps1"
+            pause}           
+            8
+            {.".\scripts\tactics\lateralmovement.ps1"
+            pause}  
+            9
+            {.".\scripts\tactics\collection.ps1"
+            pause}            
+            10
+            {.".\scripts\tactics\commandandcontrol.ps1"
+            pause}
+            11
+            {.".\scripts\tactics\exfiltration.ps1"
             pause}   
-            Q 
+            12
+            {.".\scripts\tactics\impact.ps1"
+            pause}  
+            Q
             {Exit}   
             default
             {$errout = 'Invalid option please try again........Try 0-6 or Q only'}
