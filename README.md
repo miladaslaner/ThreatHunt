@@ -8,7 +8,7 @@ ThreatHunt is a simple PowerShell repository that allows you to train your threa
 
 # Scenario
 
-Let's say you just got started in your career as a threat hunter or you are a threat hunter already but your organization got a new Endpoint Detection Response (EDR) or Security Information and Event Management (SIEM). In both cases you will want to have a safe harbour where you can raise security alerts and start analzying the data. This is where ThreatHunt can come handy as there are no malicious files but simply simulates tons of somewhat suspiscious activities. 
+Let's say you just got started in your career as a threat hunter or you are a threat hunter already but your organization got a new Endpoint Detection Response (EDR) or Security Information and Event Management (SIEM). In both cases you will want to have a safe harbour where you can raise security alerts and start analyzing the data. This is where ThreatHunt can come handy as there are no malicious files but simply simulates tons of somewhat suspiscious activities. 
 
 # Prerequisites 
 
