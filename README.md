@@ -1,6 +1,6 @@
 # Introduction
 
-ThreatHunt is a simple PowerShell repository that allows you to train your threat hunting skills. ThreatHunt allows you to simulate a variety of attack techniques and procedures without leveraging malicious files. ThreatHunt is not an penetration system tool or framework but instead a very simply way to raise security alerts that help you to train your threat hunting skills.
+ThreatHunt is a simple PowerShell repository that allows you to train your threat hunting skills. ThreatHunt allows you to simulate a variety of attack techniques and procedures without leveraging malicious files. ThreatHunt is not a penetration system tool or framework but instead a very simple way to raise security alerts that help you to train your threat hunting skills.
 
 # Screenshot
 
@@ -28,4 +28,4 @@ ThreatHunt installs and leverages some 3rd-party tools and files such as PSExec,
 
 While there are no malicious files inside this GitHub repositroy its important to call out that you are responsible for your environment. Make sure to assess any tools you deploy wisely before using in production environments. 
 
-Some of the activities are very simplified. As an example one step is copying calc.exe under C:\Windows\System32 as mimikatz.exe to a network share. Again, this isnt about using malicious files but to simply generate noise that can be used to train threat hunting skills.
+Some of the activities are very simplified. As an example, one step is copying calc.exe under C:\Windows\System32 as mimikatz.exe to a network share. Again, this isn't about using malicious files but to simply generate noise that can be used to train threat hunting skills.
